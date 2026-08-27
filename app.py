@@ -8,7 +8,7 @@ from scoring import WEIGHT_PRESETS, compute_total_score
 
 st.set_page_config(page_title="AI Forensic Tool Evaluation Framework", layout="wide")
 st.title("AI Forensic Tool Evaluation Framework")
-st.caption("Term 3 prototype - Input layer -> Evaluation engine -> Output layer")
+st.caption("Input layer -> Evaluation engine -> Output layer")
 
 # --- Input layer -------------------------------------------------------
 with open("tools_data.json") as f:
