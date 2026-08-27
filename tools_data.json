@@ -1,0 +1,38 @@
+[
+  {
+    "name": "LSTM-based NIDS",
+    "f1_score": 0.0,
+    "fpr": 0.0,
+    "latency_ms": 0,
+    "categories_covered": 0,
+    "total_categories": 15,
+    "notes": "PLACEHOLDER - replace with independent CSE-CIC-IDS2018 test results"
+  },
+  {
+    "name": "CNN-based NIDS",
+    "f1_score": 0.0,
+    "fpr": 0.0,
+    "latency_ms": 0,
+    "categories_covered": 0,
+    "total_categories": 15,
+    "notes": "PLACEHOLDER - replace with independent CSE-CIC-IDS2018 test results"
+  },
+  {
+    "name": "Hybrid SVM-DL NIDS",
+    "f1_score": 0.0,
+    "fpr": 0.0,
+    "latency_ms": 0,
+    "categories_covered": 0,
+    "total_categories": 15,
+    "notes": "PLACEHOLDER - replace with independent CSE-CIC-IDS2018 test results"
+  },
+  {
+    "name": "Snort (rule-based NIDS)",
+    "f1_score": 0.0,
+    "fpr": 0.0,
+    "latency_ms": 0,
+    "categories_covered": 0,
+    "total_categories": 15,
+    "notes": "PLACEHOLDER - conventional comparator. Test by replaying CSE-CIC-IDS2018 PCAPs through Snort and scoring alerts against ground-truth labels. Suricata can be added later as a stretch comparator using this same schema."
+  }
+]
