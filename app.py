@@ -6,7 +6,7 @@ import streamlit as st
 
 from scoring import WEIGHT_PRESETS, compute_total_score
 
-st.set_page_config(page_title="Forensic Tool Evaluation Framework", layout="wide")
+st.set_page_config(page_title="Technical Performance Evaluation Framework", layout="wide")
 st.title("AI Forensic Tool Evaluation Framework")
 st.caption("Input layer -> Evaluation engine -> Output layer")
 
