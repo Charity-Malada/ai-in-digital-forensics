@@ -1,38 +1,38 @@
 [
   {
     "name": "LSTM-based NIDS",
-    "f1_score": 0.0,
-    "fpr": 0.0,
-    "latency_ms": 0,
-    "categories_covered": 0,
-    "total_categories": 15,
-    "notes": "PLACEHOLDER - replace with independent CSE-CIC-IDS2018 test results"
+    "f1_score": 0.94,
+    "fpr": 0.028,
+    "latency_ms": 45,
+    "categories_covered": 3,
+    "total_categories": 4,
+    "notes": "ILLUSTRATIVE PLACEHOLDER - not measured. To be replaced with independent CSE-CIC-IDS2018 test results in Term 4."
   },
   {
     "name": "CNN-based NIDS",
-    "f1_score": 0.0,
-    "fpr": 0.0,
-    "latency_ms": 0,
-    "categories_covered": 0,
-    "total_categories": 15,
-    "notes": "PLACEHOLDER - replace with independent CSE-CIC-IDS2018 test results"
+    "f1_score": 0.91,
+    "fpr": 0.04,
+    "latency_ms": 65,
+    "categories_covered": 3,
+    "total_categories": 4,
+    "notes": "ILLUSTRATIVE PLACEHOLDER - not measured. To be replaced with independent CSE-CIC-IDS2018 test results in Term 4."
   },
   {
     "name": "Hybrid SVM-DL NIDS",
-    "f1_score": 0.0,
-    "fpr": 0.0,
-    "latency_ms": 0,
-    "categories_covered": 0,
-    "total_categories": 15,
-    "notes": "PLACEHOLDER - replace with independent CSE-CIC-IDS2018 test results"
+    "f1_score": 0.97,
+    "fpr": 0.015,
+    "latency_ms": 120,
+    "categories_covered": 4,
+    "total_categories": 4,
+    "notes": "ILLUSTRATIVE PLACEHOLDER - not measured. Highest accuracy/coverage, highest overhead: trade-off consistent with literature (Abuali et al., 2023). To be replaced with independent CSE-CIC-IDS2018 test results in Term 4."
   },
   {
     "name": "Snort (rule-based NIDS)",
-    "f1_score": 0.0,
-    "fpr": 0.0,
-    "latency_ms": 0,
-    "categories_covered": 0,
-    "total_categories": 15,
-    "notes": "PLACEHOLDER - conventional comparator. Test by replaying CSE-CIC-IDS2018 PCAPs through Snort and scoring alerts against ground-truth labels. Suricata can be added later as a stretch comparator using this same schema."
+    "f1_score": 0.79,
+    "fpr": 0.008,
+    "latency_ms": 3,
+    "categories_covered": 2,
+    "total_categories": 4,
+    "notes": "ILLUSTRATIVE PLACEHOLDER - not measured. Fast and precise but weaker on novel attacks: trade-off consistent with literature (Hozouri et al., 2025 on S-IDS vs A-IDS). To be replaced with independent CSE-CIC-IDS2018 test results in Term 4."
   }
 ]
