@@ -58,7 +58,7 @@ categories = ["accuracy", "fpr", "overhead", "coverage"]
 labels = ["Accuracy", "FPR", "Overhead", "Coverage"]
 
 fig = go.Figure()
-for row in results:
+for _, row in df.iterrows():
     fig.add_trace(
         go.Scatterpolar(
             r=[row[c] for c in categories],
