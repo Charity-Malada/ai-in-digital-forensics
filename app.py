@@ -1,23 +1,19 @@
 import json
-
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
-
 from scoring import WEIGHT_PRESETS, compute_total_score
 
 st.set_page_config(page_title="Technical Performance Evaluation Framework", layout="wide")
 st.title("Technical Performance Evaluation Framework")
 st.caption("Input layer -> Evaluation engine -> Output layer")
 
-# --- Input layer -------------------------------------------------------
 with open("tools_data.json") as f:
     tools = json.load(f)
 
 with st.expander("Tool specifications (edit tools_data.json to update)"):
     st.json(tools)
 
-# --- Weighting control (T4 sensitivity analysis) ------------------------
 st.sidebar.header("Weighting scheme")
 preset_name = st.sidebar.radio("Preset", list(WEIGHT_PRESETS.keys()) + ["Custom"])
 
@@ -37,19 +33,23 @@ if preset_name == "Custom":
 else:
     weights = WEIGHT_PRESETS[preset_name]
 
-# --- Evaluation engine ---------------------------------------------------
 results = []
 for tool in tools:
     r = compute_total_score(tool, weights)
     results.append({"Tool": tool["name"], "Total score": r["total"], **r["sub_scores"]})
 
 df = pd.DataFrame(results).sort_values("Total score", ascending=False).reset_index(drop=True)
-df.index = df.index + 1  # 1-based rank
+df.index = df.index + 1
 
-# --- Output layer ---------------------------------------------------
 st.subheader("Ranking")
 st.dataframe(
-    df.style.format({"Total score": "{:.1f}", "accuracy": "{:.1f}", "fpr": "{:.1f}", "overhead": "{:.1f}", "coverage": "{:.1f}"}),
+    df.style.format({
+        "Total score": "{:.1f}",
+        "accuracy": "{:.1f}",
+        "fpr": "{:.1f}",
+        "overhead": "{:.1f}",
+        "coverage": "{:.1f}",
+    }),
     use_container_width=True,
 )
 
@@ -58,20 +58,24 @@ categories = ["accuracy", "fpr", "overhead", "coverage"]
 labels = ["Accuracy", "FPR", "Overhead", "Coverage"]
 
 fig = go.Figure()
+
+# ✅ FIX: iterate df rows (rebuilt each run with current weights)
+# and plot WEIGHTED values so spokes visually reflect weight changes
 for _, row in df.iterrows():
+    weighted_r = [row[c] * (weights[c] / 0.25) for c in categories]
     fig.add_trace(
         go.Scatterpolar(
-            r=[row[c] for c in categories],
+            r=weighted_r,
             theta=labels,
             fill="toself",
             name=row["Tool"],
         )
     )
+
 fig.update_layout(
-    polar=dict(radialaxis=dict(visible=True, range=[0, 25])),
+    polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
     showlegend=True,
     margin=dict(t=20, b=20),
 )
 st.plotly_chart(fig, use_container_width=True)
-
-st.caption(f"Weighting used: {weights}")
+st.caption(f"Weighting used: { {k: round(v, 2) for k, v in weights.items()} }")
