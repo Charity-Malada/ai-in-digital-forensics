@@ -1,38 +1,38 @@
 [
   {
     "name": "LSTM-based NIDS",
-    "f1_score": 0.94,
-    "fpr": 0.028,
-    "latency_ms": 45,
-    "categories_covered": 3,
+    "f1_score": 0.9751,
+    "fpr": 0.0067,
+    "latency_ms": 2.28,
+    "categories_covered": 2,
     "total_categories": 4,
-    "notes": "ILLUSTRATIVE PLACEHOLDER - not measured. To be replaced with independent CSE-CIC-IDS2018 test results in Term 4."
+    "notes": "Measured on a stratified CSE-CIC-IDS2018 sample (574,414 rows, 70/30 stratified split, seed 42, CPU only). Latency = ms per batch of 1,000 flows (median of 3 timings). Coverage = categories with >=80% recall out of the 3 measurable; reconnaissance has no ground truth in this dataset. Training time 156 s. Category recall: {'Network': 0.999, 'Credential': 0.992, 'Malware': 0.715, 'Unmapped': 0.474}"
   },
   {
     "name": "CNN-based NIDS",
-    "f1_score": 0.91,
-    "fpr": 0.04,
-    "latency_ms": 65,
-    "categories_covered": 3,
+    "f1_score": 0.9753,
+    "fpr": 0.0068,
+    "latency_ms": 14.63,
+    "categories_covered": 2,
     "total_categories": 4,
-    "notes": "ILLUSTRATIVE PLACEHOLDER - not measured. To be replaced with independent CSE-CIC-IDS2018 test results in Term 4."
+    "notes": "Measured on a stratified CSE-CIC-IDS2018 sample (574,414 rows, 70/30 stratified split, seed 42, CPU only). Latency = ms per batch of 1,000 flows (median of 3 timings). Coverage = categories with >=80% recall out of the 3 measurable; reconnaissance has no ground truth in this dataset. Training time 467 s. Category recall: {'Network': 1.0, 'Credential': 0.993, 'Malware': 0.714, 'Unmapped': 0.726}"
   },
   {
     "name": "Hybrid SVM-DL NIDS",
-    "f1_score": 0.97,
-    "fpr": 0.015,
-    "latency_ms": 120,
-    "categories_covered": 4,
+    "f1_score": 0.975,
+    "fpr": 0.006,
+    "latency_ms": 274.14,
+    "categories_covered": 2,
     "total_categories": 4,
-    "notes": "ILLUSTRATIVE PLACEHOLDER - not measured. Highest accuracy/coverage, highest overhead: trade-off consistent with literature (Abuali et al., 2023). To be replaced with independent CSE-CIC-IDS2018 test results in Term 4."
+    "notes": "Measured on a stratified CSE-CIC-IDS2018 sample (574,414 rows, 70/30 stratified split, seed 42, CPU only). Latency = ms per batch of 1,000 flows (median of 3 timings). Coverage = categories with >=80% recall out of the 3 measurable; reconnaissance has no ground truth in this dataset. Training time 193 s. Category recall: {'Network': 0.999, 'Credential': 0.989, 'Malware': 0.715, 'Unmapped': 0.432}"
   },
   {
     "name": "Snort (rule-based NIDS)",
-    "f1_score": 0.79,
-    "fpr": 0.008,
-    "latency_ms": 3,
-    "categories_covered": 2,
+    "f1_score": 0.0,
+    "fpr": 0.0,
+    "latency_ms": 4.4,
+    "categories_covered": 0,
     "total_categories": 4,
-    "notes": "ILLUSTRATIVE PLACEHOLDER - not measured. Fast and precise but weaker on novel attacks: trade-off consistent with literature (Hozouri et al., 2025 on S-IDS vs A-IDS). To be replaced with independent CSE-CIC-IDS2018 test results in Term 4."
+    "notes": "Snort 2.9.20-WIN64, community rules (561 active), checksums off (-k none), HOME_NET any. Run on victim-host captures for 02-14 (4.72M packets) and 02-16 (18.9M packets): 0 alerts. Latency = ms per 1,000 packets, including start-up. FPR of 0 reflects no alerts at all."
   }
 ]
