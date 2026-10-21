@@ -10,6 +10,9 @@ can unit test them directly - this is your T1/T2 test cases from the
 testing plan.
 """
 
+# NOTE: each function returns one representative score per band (25/20/15/8).
+# The paper's Table 1 gives point ranges (e.g. 23-25); the midpoint-style
+# simplification is used so scores are deterministic and unit-testable.
 
 def score_detection_accuracy(f1_score: float) -> float:
     """F1 score (0-1) -> 0-25 pts. Matches Table 1 exactly."""
@@ -97,7 +100,7 @@ def compute_total_score(tool_spec: dict, weights: dict = None) -> dict:
 
 if __name__ == "__main__":
     # Quick manual sanity check - T1/T2 style. Run: python scoring.py
-    sample = {"f1_score": 0.93, "fpr": 0.02, "latency_ms": 40, "categories_covered": 11}
+    sample = {"f1_score": 0.93, "fpr": 0.02, "latency_ms": 40, "categories_covered": 3}
     print("Equal weights:", compute_total_score(sample))
     print("Accuracy-priority:", compute_total_score(sample, WEIGHT_PRESETS["Accuracy-priority (40%)"]))
     assert score_detection_accuracy(0.95) == 25
