@@ -2,14 +2,26 @@ import json
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
-from scoring import WEIGHT_PRESETS, compute_total_score
+from scoring import WEIGHT_PRESETS, compute_total_score, validate_tool_spec
 
 st.set_page_config(page_title="Technical Performance Evaluation Framework", layout="wide")
 st.title("Technical Performance Evaluation Framework")
 st.caption("Input layer -> Evaluation engine -> Output layer")
 
-with open("tools_data.json") as f:
-    tools = json.load(f)
+# T9: a missing, unreadable or malformed specification file is reported, not a crash
+try:
+    with open("tools_data.json") as f:
+        tools = json.load(f)
+except FileNotFoundError:
+    st.error("tools_data.json was not found.")
+    st.stop()
+except json.JSONDecodeError as e:
+    st.error(f"tools_data.json is not valid JSON: {e}")
+    st.stop()
+
+if not isinstance(tools, list):
+    st.error("tools_data.json must contain a list of tool specifications.")
+    st.stop()
 
 with st.expander("Tool specifications (edit tools_data.json to update)"):
     st.json(tools)
@@ -35,8 +47,18 @@ else:
 
 results = []
 for tool in tools:
+    # T9: invalid or incomplete specifications are rejected with a message
+    errs = validate_tool_spec(tool)
+    if errs:
+        label = tool.get("name", "Unnamed tool") if isinstance(tool, dict) else "Invalid entry"
+        st.error(f"{label} rejected: {'; '.join(errs)}")
+        continue
     r = compute_total_score(tool, weights)
     results.append({"Tool": tool["name"], "Total score": r["total"], **r["sub_scores"]})
+
+if not results:
+    st.warning("No valid tools to score. Check tools_data.json.")
+    st.stop()
 
 df = pd.DataFrame(results).sort_values("Total score", ascending=False).reset_index(drop=True)
 df.index = df.index + 1
@@ -59,7 +81,7 @@ labels = ["Accuracy", "FPR", "Overhead", "Coverage"]
 
 fig = go.Figure()
 
-# ✅ FIX: iterate df rows (rebuilt each run with current weights)
+# Iterate df rows (rebuilt each run with current weights)
 # and plot WEIGHTED values so spokes visually reflect weight changes
 for _, row in df.iterrows():
     weighted_r = [row[c] * (weights[c] / 0.25) for c in categories]
