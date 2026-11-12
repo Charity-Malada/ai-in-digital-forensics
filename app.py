@@ -8,6 +8,31 @@ st.set_page_config(page_title="Technical Performance Evaluation Framework", layo
 st.title("Technical Performance Evaluation Framework")
 st.caption("Input layer -> Evaluation engine -> Output layer")
 
+
+with st.expander("About this tool: what is being measured?", expanded=True):
+    st.markdown("""
+**Purpose.** This tool compares network intrusion detection systems (NIDS), which are tools that spot cyberattacks on a network.
+It is part of an Honours research project at the University of the Western Cape.
+ 
+**How it works.** Each tool gets 0 to 25 points on four measures, giving a total out of 100.
+Use the sidebar to change how much each measure matters to you.
+ 
+| Measure | What it means | How it is measured |
+|---|---|---|
+| Accuracy | How well the tool tells attacks from normal traffic | F1-score = 2 x (precision x recall) / (precision + recall) |
+| FPR | Share of harmless traffic wrongly flagged as an attack | False positive rate = FP / (FP + TN) |
+| Overhead | How heavy the tool is to run | Inference latency: milliseconds to classify 1,000 flows (Snort: 1,000 packets) |
+| Coverage | How many attack types the tool detects (out of 4) | Attack categories detected with at least 80% recall |
+ 
+**Tools compared** (tested on the CSE-CIC-IDS2018 dataset):
+- **LSTM-based NIDS**: a Long Short-Term Memory neural network
+- **CNN-based NIDS**: a Convolutional Neural Network
+- **Hybrid SVM-DL NIDS**: deep-learning features classified by a Support Vector Machine
+- **Snort**: a widely used rule-based (signature) NIDS, version 2.9.20, community rules
+ 
+*The score bands are the author's own design, and each result comes from a single run, so treat the ranking as indicative.*
+""")
+
 # T9: a missing, unreadable or malformed specification file is reported, not a crash
 try:
     with open("tools_data.json") as f:
